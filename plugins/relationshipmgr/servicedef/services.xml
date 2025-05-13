@@ -18,6 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<!--Defining names of services-->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
     <description>Relationshipmgr Services</description>
@@ -65,45 +66,13 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-
     <service name="addCust" engine="groovy" location="component://relationshipmgr/src/main/groovy/CreateCustomer.groovy" invoke="CreateCustomer" auth="true">
         <description>Create Customer</description>
         <attribute name="email" type="String" mode="IN" optional="false"/>
         <attribute name="firstName" type="String" mode="IN" optional="false"/>
         <attribute name="lastName" type="String" mode="IN" optional="false"/>
     </service>
-
-<!--    <service name="updateCust" engine="groovy" location="component://relationshipmgr/src/main/groovy/CreateCustomer.groovy" invoke="UpdateCustomer" auth="true">-->
-<!--        <description>Update Customer</description>-->
-
-<!--        &lt;!&ndash; Required IN parameters &ndash;&gt;-->
-<!--        <attribute name="partyId" type="String" mode="IN" optional="false"/>-->
-<!--        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>-->
-<!--        <attribute name="email" type="String" mode="IN" optional="false"/>-->
-<!--        <attribute name="toName" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="attnName" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="address1" type="String" mode="IN" optional="false"/>-->
-<!--        <attribute name="address2" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="city" type="String" mode="IN" optional="false"/>-->
-<!--&lt;!&ndash;        <attribute name="postalCod" type="String" mode="IN" optional="false"/> &lt;!&ndash; Assuming it's not a typo in code &ndash;&gt;&ndash;&gt;-->
-<!--        <attribute name="countryCode" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="areaCode" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="contactNumber" type="String" mode="IN" optional="false"/>-->
-
-<!--        &lt;!&ndash; OUT parameters &ndash;&gt;-->
-<!--        <attribute name="partyId" type="String" mode="OUT"/>-->
-<!--        <attribute name="contactMechId" type="String" mode="OUT"/>-->
-<!--    </service>-->
-
-<!--    <service name="findCustomer" engine="groovy" location="component://relationshipmgr/src/main/groovy/FindCustomer.groovy" invoke="run" auth="true">-->
-<!--        <description>Find customer by filters</description>-->
-<!--        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="firstName" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="lastName" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>-->
-<!--        <attribute name="postalCode" type="String" mode="IN" optional="true"/>-->
-<!--    </service>-->
-
+<!--To find a Customer from FindCustomer View Entity-->
     <service name="FindCustomer" engine="groovy" location="component://relationshipmgr/src/main/groovy/FindCustomer.groovy" invoke="findCustomer" auth="false">
         <description>Find customers using custom view</description>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>

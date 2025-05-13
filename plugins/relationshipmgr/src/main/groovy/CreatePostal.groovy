@@ -3,7 +3,7 @@ import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.base.util.UtilDateTime
 
 
-
+//Made a service to enter Postal details in my own made PostalAddress1 entity
 def createPostalAddress() {
     def result = [:]
     try {

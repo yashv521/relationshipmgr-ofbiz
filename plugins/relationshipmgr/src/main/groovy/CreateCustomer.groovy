@@ -2,6 +2,8 @@ package main.groovy
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.*
 
+//Creating A customer with custom fields
+
 def CreateCustomer() {
     def result = [:]
     try{

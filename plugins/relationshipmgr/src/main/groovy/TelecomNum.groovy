@@ -8,6 +8,7 @@ def createTelecomNumber() {
     def result = [:]
     try {
         // Read partyId from context (this must be passed via form or screen)
+        //Made a service to enter telecom details in my own made telephone1 entity
         println("=================================================================================="+parameters.partyId)
         def partyId = context.partyId
         if (!partyId) {
