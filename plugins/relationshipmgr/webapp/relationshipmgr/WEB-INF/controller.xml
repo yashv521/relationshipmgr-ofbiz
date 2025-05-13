@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+
+    <description>Relationshipmgr Component Site Configuration File</description>
+
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
+    <preprocessor>
+    </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
+    <postprocessor>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
+    </postprocessor>
+    -->
+
+    <!-- Request Mappings -->
+    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
+
+    <request-map uri="addperson">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="AddPerson"/>
+        <response name="success" type="view" value="AddPerson"/>
+    </request-map>
+    <request-map uri="AddPerson"><security https="true" auth="true"/><response name="success" type="view" value="AddPerson"/></request-map>
+
+    <request-map uri="createPersonByJavaService">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="AddPeople"/>
+        <response name="success" type="request-redirect" value="createtelecom">
+            <redirect-parameter name="partyId" value="10120"/>
+        </response>
+    </request-map>
+    <request-map uri="AddPeople"><security https="true" auth="true"/><response name="success" type="view" value="AddPeople"/></request-map>
+
+    <request-map uri="addorg">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="AddOrg"/>
+        <response name="success" type="view" value="AddOrg"/>
+    </request-map>
+    <request-map uri="AddOrg"><security https="true" auth="true"/>
+        <response name="success" type="view" value="AddOrg"/>
+    </request-map>
+
+    <request-map uri="createtelecom">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="TelecomNumber1GroovyService"/>
+        <response name="success" type="view" value="telecom"/>
+    </request-map>
+    <request-map uri="createPostalAddress">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="PostalAddress1GroovyService"/>
+        <response name="success" type="view" value="PostalAddress"/>
+    </request-map>
+    <request-map uri="Add"><security https="true" auth="true"/><response name="success" type="view" value="AddPeople"/></request-map>
+
+    <request-map uri="createContactMech">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyContactMech"/>
+        <response name="success" type="view" value="editcontactmech"/>
+        <response name="error" type="view" value="editcontactmech"/>
+    </request-map>
+
+    <request-map uri="createCustomer">
+        <security https="true" auth="true"/>
+
+        <response name="" type=""></response>
+    </request-map>
+    
+<!--    <request-map uri="findCustomer">-->
+<!--        <security https="true" auth="true"/>-->
+<!--        <event type="service" invoke="FindCustomer"/>-->
+<!--        <response name="success" type="view" value="FindCustomerScreen"/>-->
+<!--        <response name="error" type="view" value="FindCustomerScreen"/>-->
+<!--    </request-map>-->
+
+    <request-map uri="FindCustomer"><security https="true" auth="true"/><response name="success" type="view" value="FindCustomerScreen"/></request-map>
+    <request-map uri="findCustomer">
+        <event type="service" invoke="FindCustomer"/>
+        <response name="success" type="view" value="FindCustomerScreen"/>
+    </request-map>
+
+
+    
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#main"/>
+
+
+
+
+    <!-- View Mappings -->
+    <view-map name="AddPerson" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#AddPerson"/>
+    <view-map name="AddOrg" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#AddOrg"/>
+    <view-map name="AddPeople" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#AddPeople"/>
+    <view-map name="telecom" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#telecom"/>
+    <view-map name="PostalAddress" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#PostalAddress"/>
+<!--    <view-map name="FindCustomerScreen" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#FindCustomerScreen"/>-->
+    <view-map name="FindCustomerScreen" type="screen" page="component://relationshipmgr/widget/RelationshipmgrScreens.xml#FindCustomerScreen"/>
+
+
+
+</site-conf>

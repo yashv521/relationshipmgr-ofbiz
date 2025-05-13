@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>Relationshipmgr Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="noSyntaxError" engine="interface">
+        <description>
+            Dummy service to prevent empty files and syntax error - Remove when the 1st real service will be added here 
+        </description>
+    </service>
+
+    <service name="AddPerson" default-entity-name="Person1" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Person</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="AddOrg" default-entity-name="Organization1" engine="entity-auto" invoke="create" auth="true">
+        <description>Create an Organisation</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="AddPeople" default-entity-name="Person1" engine="java"
+             location="main.java.AddPerson1" invoke="createPerson" auth="true">
+        <description>Create an People Demo record using a service in Java</description>
+
+        <!-- Output: Primary key -->
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+
+        <!-- Input: All non-PK fields -->
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+
+    </service>
+
+    <service name="TelecomNumber1GroovyService" default-entity-name="TelecomNumber1" engine="groovy"
+             location="component://relationshipmgr/src/main/groovy/TelecomNum.groovy" invoke="createTelecomNumber" auth="true">
+        <description>Create an Ofbiz Demo record using a service in Groovy</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="PostalAddress1GroovyService" default-entity-name="PostalAddress1" engine="groovy"
+             location="component://relationshipmgr/src/main/groovy/CreatePostal.groovy" invoke="createPostalAddress" auth="true">
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="addCust" engine="groovy" location="component://relationshipmgr/src/main/groovy/CreateCustomer.groovy" invoke="CreateCustomer" auth="true">
+        <description>Create Customer</description>
+        <attribute name="email" type="String" mode="IN" optional="false"/>
+        <attribute name="firstName" type="String" mode="IN" optional="false"/>
+        <attribute name="lastName" type="String" mode="IN" optional="false"/>
+    </service>
+
+<!--    <service name="updateCust" engine="groovy" location="component://relationshipmgr/src/main/groovy/CreateCustomer.groovy" invoke="UpdateCustomer" auth="true">-->
+<!--        <description>Update Customer</description>-->
+
+<!--        &lt;!&ndash; Required IN parameters &ndash;&gt;-->
+<!--        <attribute name="partyId" type="String" mode="IN" optional="false"/>-->
+<!--        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>-->
+<!--        <attribute name="email" type="String" mode="IN" optional="false"/>-->
+<!--        <attribute name="toName" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="attnName" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="address1" type="String" mode="IN" optional="false"/>-->
+<!--        <attribute name="address2" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="city" type="String" mode="IN" optional="false"/>-->
+<!--&lt;!&ndash;        <attribute name="postalCod" type="String" mode="IN" optional="false"/> &lt;!&ndash; Assuming it's not a typo in code &ndash;&gt;&ndash;&gt;-->
+<!--        <attribute name="countryCode" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="areaCode" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="contactNumber" type="String" mode="IN" optional="false"/>-->
+
+<!--        &lt;!&ndash; OUT parameters &ndash;&gt;-->
+<!--        <attribute name="partyId" type="String" mode="OUT"/>-->
+<!--        <attribute name="contactMechId" type="String" mode="OUT"/>-->
+<!--    </service>-->
+
+<!--    <service name="findCustomer" engine="groovy" location="component://relationshipmgr/src/main/groovy/FindCustomer.groovy" invoke="run" auth="true">-->
+<!--        <description>Find customer by filters</description>-->
+<!--        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="firstName" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="lastName" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>-->
+<!--        <attribute name="postalCode" type="String" mode="IN" optional="true"/>-->
+<!--    </service>-->
+
+    <service name="FindCustomer" engine="groovy" location="component://relationshipmgr/src/main/groovy/FindCustomer.groovy" invoke="findCustomer" auth="false">
+        <description>Find customers using custom view</description>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="postalAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="sortByCombinedName" type="String" mode="IN" optional="true"/>
+        <attribute name="viewIndex" type="Integer" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+
+        <attribute name="partyList" type="List" mode="OUT" optional="false"/>
+        <attribute name="totalCount" type="Integer" mode="OUT" optional="false"/>
+    </service>
+
+
+
+
+</services>

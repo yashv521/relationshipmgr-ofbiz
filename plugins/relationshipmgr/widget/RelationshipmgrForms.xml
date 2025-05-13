@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+<form name="AddPerson" type="single" target="addperson">
+    <auto-fields-service service-name="AddPerson"/>
+    <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/> </field>
+</form>
+
+<form name="AddOrg" type="single" target="addorg">
+    <auto-fields-service service-name="AddOrg"/>
+    <field name="submitButton" title="${iuiLabelMap.CommonAdd}"><submit button-type="button"/> </field>
+</form>
+    
+ <form name="AddPeople" type="single" target="createPersonByJavaService">
+     <auto-fields-service service-name="AddPeople"/>
+     <field name="roleTypeId" title="Role">
+         <drop-down allow-empty="true" current-description="">
+             <entity-options description="${roleTypeId}" key-field-name="roleTypeId" entity-name="RoleType1">
+                 <entity-order-by field-name="roleTypeId"/>
+             </entity-options>
+         </drop-down>
+     </field>
+
+     <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+ </form>
+
+    <form name="telecom" type="single" target="createtelecom">
+        <auto-fields-service service-name="TelecomNumber1GroovyService"/>
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    <form name="PostalAddress" type="single" target="createPostalAddress">
+        <auto-fields-service service-name="PostalAddress1GroovyService"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="FindCustomerForm" type="single" target="findCustomer" title="Find Customer">
+        <auto-fields-entity entity-name="FindCustomerView" default-field-type="find"/>
+
+        <field name="postalAddress"><text/></field>
+        <field name="sortByCombinedName"><check/></field>
+
+        <field name="viewIndex"><hidden/></field>
+        <field name="viewSize"><hidden/></field>
+
+        <field name="submitButton" title="Find">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+
+</forms>
